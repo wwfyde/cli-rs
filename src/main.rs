@@ -14,7 +14,9 @@ fn main() {
         )
         .arg(Arg::new("verbose")
             .long("verbose")
-            .help("Print more information"))
+            .help("Print more information")
+            .action(ArgAction::SetTrue)
+        )
         .subcommand(Command::new("add")
             .about("Add two numbers")
             .arg(Arg::new("first")
@@ -27,6 +29,8 @@ fn main() {
                 .index(2))
         )
         .get_matches();
+    let quiet = matches.get_flag("quiet");
+    let verbose = matches.get_flag("verbose");
     if let Some(add_matches) = matches.subcommand_matches("add") {
         let first: f64 = add_matches.get_one::<String>("first").expect("required")
             .parse()
@@ -45,6 +49,10 @@ fn main() {
         } else {
             println!("The sum of {} and {} is {}", first, second, first + second);
         }
+    } else if quiet {
+        println!("Nothing to do");
+    } else if verbose {
+        println!("Please use subcommand add");
     } else {
         println!("No subcommand was used");
     }
