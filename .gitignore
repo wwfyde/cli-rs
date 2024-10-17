@@ -17,7 +17,7 @@ data/
 # Go workspace file
 go.work
 vendor/
-bin/
+#bin/
 # match any directory equal **/out/
 out/
 
